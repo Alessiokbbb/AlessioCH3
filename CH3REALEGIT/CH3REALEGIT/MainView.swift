@@ -186,25 +186,25 @@ let dsGames = [
     Game(imageName: "pokemonblack", title: "Pokémon Black", genre: "RPG", releaseDate: "2009", description: "A classic RPG where you collect and train Pokémon to become a champion."),
     Game(imageName: "marioeluigi", title: "Mario & Luigi Bowser's Inside Story", genre: "RPG", releaseDate: "2009", description: "Join Mario and Luigi in an epic quest inside Bowser's body."),
     Game(imageName: "phoenixwright", title: "Phoenix Wright: Ace Attorney", genre: "Visual Novel", releaseDate: "2005", description: "A courtroom drama where you defend clients and uncover the truth."),
-    Game(imageName: "zelda", title: "The Legend of Zelda: Spirit Tracks", genre: "Adventure", releaseDate: "2009", description: "An adventurous journey where Link explores dungeons using a magical train."),
+    Game(imageName: "zeldaspirit", title: "The Legend of Zelda: Spirit Tracks", genre: "Adventure", releaseDate: "2009", description: "An adventurous journey where Link explores dungeons using a magical train."),
     Game(imageName: "nintendogs", title: "Nintendogs", genre: "Simulation", releaseDate: "2005", description: "A pet simulation game where you raise and train virtual puppies."),
-    Game(imageName: "professorlayton", title: "Professor Layton and the Curious Village", genre: "Puzzle", releaseDate: "2007", description: "Solve mind-bending puzzles in an engaging mystery adventure."),
-    Game(imageName: "kirby", title: "Kirby Super Star Ultra", genre: "Platformer", releaseDate: "2008", description: "Help Kirby save Dream Land in a series of platforming challenges."),
-    Game(imageName: "mariokart", title: "Mario Kart DS", genre: "Racing", releaseDate: "2005", description: "Race with Mario and friends in exciting kart tracks."),
+    Game(imageName: "proflayton", title: "Professor Layton and the Curious Village", genre: "Puzzle", releaseDate: "2007", description: "Solve mind-bending puzzles in an engaging mystery adventure."),
+    Game(imageName: "kirbysuperstarultra", title: "Kirby Super Star Ultra", genre: "Platformer", releaseDate: "2008", description: "Help Kirby save Dream Land in a series of platforming challenges."),
+    Game(imageName: "mariokartds", title: "Mario Kart DS", genre: "Racing", releaseDate: "2005", description: "Race with Mario and friends in exciting kart tracks."),
     Game(imageName: "animalcrossing", title: "Animal Crossing: Wild World", genre: "Simulation", releaseDate: "2005", description: "Live your best life in a charming animal-filled village."),
-    Game(imageName: "metroidprime", title: "Metroid Prime Hunters", genre: "FPS", releaseDate: "2006", description: "Explore alien worlds as Samus in this first-person shooter.")
+    Game(imageName: "dragonquestv", title: "Dragon Quest V", genre: "RPG", releaseDate: "2008", description: "Dragon Quest V: Hand of the Heavenly Bride follows the hero's life journey across generations, blending family, monster recruitment, and classic turn-based battles in a timeless JRPG.")
 ]
 
 let wiiGames = [
     Game(imageName: "kirbyreturn", title: "Kirby's Return to Dream Land", genre: "Platformer", releaseDate: "2011", description: "Join Kirby and friends in a colorful platforming adventure."),
-    Game(imageName: "donkeykong", title: "Donkey Kong Country Returns", genre: "Platformer", releaseDate: "2010", description: "A side-scrolling platformer featuring Donkey Kong and Diddy Kong."),
+    Game(imageName: "donkeykongcountry", title: "Donkey Kong Country Returns", genre: "Platformer", releaseDate: "2010", description: "A side-scrolling platformer featuring Donkey Kong and Diddy Kong."),
     Game(imageName: "mariogalaxy", title: "Super Mario Galaxy", genre: "Platformer", releaseDate: "2007", description: "Explore galaxies and save Princess Peach in this 3D platformer."),
-    Game(imageName: "smashbrosbrawl", title: "Super Smash Bros. Brawl", genre: "Fighting", releaseDate: "2008", description: "Battle with Nintendo's iconic characters in epic matchups."),
-    Game(imageName: "zelda", title: "The Legend of Zelda: Twilight Princess", genre: "Adventure", releaseDate: "2006", description: "Embark on a quest as Link to defeat evil and save Hyrule."),
+    Game(imageName: "smashbrawl", title: "Super Smash Bros. Brawl", genre: "Fighting", releaseDate: "2008", description: "Battle with Nintendo's iconic characters in epic matchups."),
+    Game(imageName: "zeldatwilight", title: "The Legend of Zelda: Twilight Princess", genre: "Adventure", releaseDate: "2006", description: "Embark on a quest as Link to defeat evil and save Hyrule."),
     Game(imageName: "mariokartwii", title: "Mario Kart Wii", genre: "Racing", releaseDate: "2008", description: "Race with Mario and friends in classic and new tracks."),
-    Game(imageName: "wiiresort", title: "Wii Sports Resort", genre: "Sports", releaseDate: "2009", description: "Enjoy sports activities in this motion-controlled game."),
+    Game(imageName: "wiisportsresort", title: "Wii Sports Resort", genre: "Sports", releaseDate: "2009", description: "Enjoy sports activities in this motion-controlled game."),
     Game(imageName: "xenoblade", title: "Xenoblade Chronicles", genre: "RPG", releaseDate: "2010", description: "Embark on an epic RPG journey in a vast open world."),
-    Game(imageName: "metroidotherm", title: "Metroid: Other M", genre: "Action", releaseDate: "2010", description: "Uncover Samus's past in this action-packed Metroid game."),
+    Game(imageName: "metroidm", title: "Metroid: Other M", genre: "Action", releaseDate: "2010", description: "Uncover Samus's past in this action-packed Metroid game."),
     Game(imageName: "punchout", title: "Punch-Out!!", genre: "Sports", releaseDate: "2009", description: "Step into the ring and fight as Little Mac to become a champion.")
 ]
 
@@ -212,7 +212,7 @@ let switchGames = [
     Game(imageName: "papermario", title: "Paper Mario: The Origami King", genre: "RPG", releaseDate: "2020", description: "Save the kingdom from the Origami King with Mario and friends."),
     Game(imageName: "smashbros", title: "Super Smash Bros. Ultimate", genre: "Fighting", releaseDate: "2018", description: "The ultimate brawler featuring a massive roster of characters."),
     Game(imageName: "marioodyssey", title: "Super Mario Odyssey", genre: "Platformer", releaseDate: "2017", description: "Join Mario on a globe-trotting adventure to save Princess Peach."),
-    Game(imageName: "breathofthewild", title: "The Legend of Zelda: Breath of the Wild", genre: "Adventure", releaseDate: "2017", description: "Explore Hyrule in an open-world RPG adventure."),
+    Game(imageName: "zeldabotw", title: "The Legend of Zelda: Breath of the Wild", genre: "Adventure", releaseDate: "2017", description: "Explore Hyrule in an open-world RPG adventure."),
     Game(imageName: "splatoon3", title: "Splatoon 3", genre: "Shooter", releaseDate: "2022", description: "Ink-splatting fun with team-based multiplayer battles."),
     Game(imageName: "mariokart8", title: "Mario Kart 8 Deluxe", genre: "Racing", releaseDate: "2017", description: "Race with updated tracks and characters in the ultimate kart game.")
 ]
@@ -232,7 +232,7 @@ let switchGames = [
 
          let ps4Games = [
              Game(imageName: "reddead", title: "Red Dead Redemption 2", genre: "Action Adventure", releaseDate: "2018", description: "Explore the Wild West in this epic open-world adventure."),
-             Game(imageName: "persona5", title: "Persona 5", genre: "JRPG", releaseDate: "2016", description: "Join the Phantom Thieves and change hearts in this stylish JRPG."),
+             Game(imageName: "persona5J", title: "Persona 5", genre: "JRPG", releaseDate: "2016", description: "Join the Phantom Thieves and change hearts in this stylish JRPG."),
              Game(imageName: "bloodborne", title: "Bloodborne", genre: "Soulslike", releaseDate: "2015", description: "Face terrifying beasts in a gothic horror world."),
              Game(imageName: "spiderman", title: "Marvel's Spider-Man", genre: "Action", releaseDate: "2018", description: "Swing through New York City as Spider-Man in this thrilling adventure."),
              Game(imageName: "godofwarps4", title: "God of War", genre: "Action Adventure", releaseDate: "2018", description: "Follow Kratos and Atreus on a mythological journey."),
