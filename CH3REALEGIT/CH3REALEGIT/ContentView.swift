@@ -7,18 +7,20 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
+import Foundation
+struct Game: Identifiable {
+    let id = UUID()
+    let imageName: String
+    let title: String
+    let genre: String
+    let releaseDate: String
+    let description: String
 }
 
-#Preview {
-    ContentView()
+struct ContentView: View {
+    var body: some View {
+        NavigationStack {
+            MainView()
+        }
+    }
 }
