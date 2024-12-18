@@ -16,12 +16,12 @@ import Foundation
 import SwiftUI
 
 struct GameRowView: View {
-    
     let game: Game
-    
-    // MODIFICA: Parametri per la selezione del gioco
     let isSelected: Bool
     let onToggleSelection: () -> Void
+    let onFavoriteToggle: () -> Void
+    let isFavorite: Bool       // MODIFICA: Per sapere se il gioco è tra i preferiti
+    let showControls: Bool     // MODIFICA: Per mostrare o nascondere i pulsanti
 
     var body: some View {
         HStack(spacing: 20) {
@@ -29,7 +29,7 @@ struct GameRowView: View {
                 RoundedRectangle(cornerRadius: 0)
                     .stroke(Color.gray, lineWidth: 1)
                     .frame(width: 100, height: 100)
-                
+
                 Image(game.imageName)
                     .resizable()
                     .frame(width: 100, height: 100)
@@ -45,30 +45,31 @@ struct GameRowView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
 
-                HStack(spacing: 15) {
-                    // MODIFICA: Pulsante per selezionare/deselezionare il gioco
-                    Button(action: {
-                        onToggleSelection()
-                    }) {
-                        Image(systemName: isSelected ? "checkmark.circle.fill" : "plus")
-                            .font(.body)
-                            .foregroundColor(isSelected ? .green : .blue)
-                            .padding(8)
-                            .background(Circle().stroke(isSelected ? Color.green : Color.blue, lineWidth: 1))
-                    }
+                if showControls {
+                    HStack(spacing: 15) {
+                        Button(action: {
+                            onToggleSelection()
+                        }) {
+                            Image(systemName: isSelected ? "checkmark.circle.fill" : "plus")
+                                .font(.body)
+                                .foregroundColor(isSelected ? .green : .blue)
+                                .padding(8)
+                                .background(Circle().stroke(isSelected ? Color.green : Color.blue, lineWidth: 1))
+                        }
 
-                    Button(action: {
-                        // Azione preferiti futura
-                    }) {
-                        Image(systemName: "star.fill")
-                            .font(.body)
-                            .foregroundColor(.yellow)
-                            .padding(8)
-                            .background(Circle().stroke(Color.yellow, lineWidth: 1))
+                        // Se il gioco è nei preferiti, mostra star.fill gialla, altrimenti star grigia
+                        Button(action: {
+                            onFavoriteToggle()
+                        }) {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                                .font(.body)
+                                .foregroundColor(isFavorite ? .yellow : .gray)
+                                .padding(8)
+                                .background(Circle().stroke(isFavorite ? Color.yellow : Color.gray, lineWidth: 1))
+                        }
                     }
                 }
             }
-
             Spacer()
         }
         .padding()

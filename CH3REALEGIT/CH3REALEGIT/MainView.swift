@@ -2,23 +2,27 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct MainView: View {
-    @State private var selectedConsoles: Set<String> = [] // Tracks selected consoles
-    @State private var selectionMode: Bool = false // Selection mode toggle
-    @State private var isShareSheetPresented = false // Share sheet state
-    
+    @State private var selectedConsoles: Set<String> = []
+    @State private var selectionMode: Bool = false
+    @State private var isShareSheetPresented = false
+    @State private var favorites: [Game] = []
+
     var body: some View {
         NavigationStack {
             VStack {
                 HStack {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
-                        .font(.largeTitle)
-                        .padding(.leading)
+                    NavigationLink(destination: FavoritesView(favorites: $favorites)) {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                            .font(.largeTitle)
+                            .padding(.leading)
+                    }
+
                     Spacer()
                     Button(action: {
                         selectionMode.toggle()
                         if !selectionMode {
-                            selectedConsoles.removeAll() // Clear selection when toggling off
+                            selectedConsoles.removeAll()
                         }
                     }) {
                         Image(systemName: selectionMode ? "checkmark.circle.fill" : "circle")
@@ -36,7 +40,7 @@ struct MainView: View {
                         ("Switch", "switchimmagine", switchGames)
                     ])
 
-                    consoleSection(title: "Others", consoles: [
+                    consoleSection(title: "Altre", consoles: [
                         ("PSP/PSVita", "pspimmagine", pspGames),
                         ("PS4", "ps4immagine", ps4Games),
                         ("Steam", "steamimmagine", steamGames)
@@ -47,7 +51,7 @@ struct MainView: View {
                 Spacer()
 
                 Button(action: {
-                    shareSelectedConsoles() // Share action for selected consoles
+                    shareSelectedConsoles()
                 }) {
                     Image(systemName: "square.and.arrow.up")
                         .font(.largeTitle)
@@ -61,8 +65,7 @@ struct MainView: View {
             }
         }
     }
-    
-    // Function to build a section of consoles
+
     private func consoleSection(title: String, consoles: [(name: String, image: String, games: [Game])]) -> some View {
         VStack(alignment: .leading, spacing: 20) {
             Text(title)
@@ -90,7 +93,20 @@ struct MainView: View {
                             Button(action: {
                                 shareConsole(console.name, games: console.games)
                             }) {
-                                NavigationLink(destination: GameDetailsView(consoleName: console.name, games: console.games)) {
+                                NavigationLink(destination: GameDetailsView(
+                                    consoleName: console.name,
+                                    games: console.games,
+                                    onFavoriteToggle: { game in
+                                        if let index = favorites.firstIndex(where: { $0.id == game.id }) {
+                                            favorites.remove(at: index)
+                                        } else {
+                                            favorites.append(game)
+                                        }
+                                    },
+                                    isFavorite: { game in
+                                        favorites.contains(where: { $0.id == game.id })
+                                    }
+                                )) {
                                     ItemView(imageName: console.image, title: console.name)
                                 }
                             }
@@ -101,8 +117,7 @@ struct MainView: View {
         }
         .padding(.bottom, 10)
     }
-    
-    // Function to toggle selection state
+
     private func toggleConsoleSelection(_ console: String) {
         if selectedConsoles.contains(console) {
             selectedConsoles.remove(console)
@@ -111,21 +126,18 @@ struct MainView: View {
         }
     }
 
-    // Share selected consoles and their games
     private func shareSelectedConsoles() {
         let selectedData = buildGamesData(for: selectedConsoles)
         let tempURL = createTemporaryFile(with: selectedData)
         showShareSheet(with: tempURL)
     }
 
-    // Share specific console and its games
     private func shareConsole(_ console: String, games: [Game]) {
         let consoleData = buildGamesData(for: [console], specificGames: games)
         let tempURL = createTemporaryFile(with: consoleData)
         showShareSheet(with: tempURL)
     }
 
-    // Build the data for specific or selected consoles
     private func buildGamesData(for consoles: Set<String>, specificGames: [Game]? = nil) -> String {
         var result = "Selected Consoles and Games:\n\n"
         let allConsoles = [
@@ -136,7 +148,7 @@ struct MainView: View {
             ("PS4", ps4Games),
             ("Steam", steamGames)
         ]
-        
+
         if let games = specificGames {
             result += "Games for Console:\n\n"
             for game in games {
@@ -144,7 +156,7 @@ struct MainView: View {
             }
             return result
         }
-        
+
         for (console, games) in allConsoles where consoles.contains(console) {
             result += "Console: \(console)\n"
             for game in games {
@@ -155,21 +167,18 @@ struct MainView: View {
         return result
     }
 
-    // Show share sheet with file URL
     private func showShareSheet(with fileURL: URL) {
         let activityViewController = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
-
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let rootVC = windowScene.windows.first?.rootViewController {
             rootVC.present(activityViewController, animated: true, completion: nil)
         }
     }
 
-    // Create a temporary file with the content
     private func createTemporaryFile(with content: String) -> URL {
         let tempDirectory = FileManager.default.temporaryDirectory
         let fileURL = tempDirectory.appendingPathComponent("selected_consoles.txt")
-        
+
         do {
             try content.write(to: fileURL, atomically: true, encoding: .utf8)
         } catch {

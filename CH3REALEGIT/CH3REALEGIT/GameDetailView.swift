@@ -10,11 +10,12 @@ import SwiftUI
 struct GameDetailsView: View {
     let consoleName: String
     let games: [Game]
-
     @Environment(\.dismiss) var dismiss
-    
-    // MODIFICA: Stato per tenere traccia dei giochi selezionati
+
     @State private var selectedGames = Set<UUID>()
+
+    let onFavoriteToggle: (Game) -> Void
+    let isFavorite: (Game) -> Bool // MODIFICA: closure per controllare se un gioco è preferito
 
     var body: some View {
         NavigationStack {
@@ -33,16 +34,15 @@ struct GameDetailsView: View {
                     Spacer()
                 }
                 .padding()
-                
+
                 Text(consoleName)
                     .font(.largeTitle)
                     .bold()
                     .padding()
-                
+
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 20) {
                         ForEach(games) { game in
-                            // MODIFICA: Passa isSelected e onToggleSelection a GameRowView
                             NavigationLink {
                                 gameviewerview(game: game)
                             } label: {
@@ -55,7 +55,12 @@ struct GameDetailsView: View {
                                         } else {
                                             selectedGames.insert(game.id)
                                         }
-                                    }
+                                    },
+                                    onFavoriteToggle: {
+                                        onFavoriteToggle(game)
+                                    },
+                                    isFavorite: isFavorite(game),    // MODIFICA
+                                    showControls: true               // MODIFICA: qui si vedono i controlli
                                 )
                             }
                             Divider()
@@ -63,9 +68,9 @@ struct GameDetailsView: View {
                     }
                     .padding()
                 }
-                
+
                 Spacer()
-                
+
                 Button(action: {
                     shareGames()
                 }) {
@@ -81,8 +86,7 @@ struct GameDetailsView: View {
             .toolbar(.hidden, for: .navigationBar)
         }
     }
-    
-    // MODIFICA: buildGamesData controlla se ci sono giochi selezionati
+
     private func buildGamesData() -> String {
         let filteredGames = selectedGames.isEmpty ? games : games.filter { selectedGames.contains($0.id) }
 
@@ -93,22 +97,22 @@ struct GameDetailsView: View {
 
         return result
     }
-    
+
     private func shareGames() {
         let gamesData = buildGamesData()
         let tempURL = createTemporaryFile(with: gamesData)
         let activityViewController = UIActivityViewController(activityItems: [tempURL], applicationActivities: nil)
-        
+
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let rootVC = windowScene.windows.first?.rootViewController {
             rootVC.present(activityViewController, animated: true, completion: nil)
         }
     }
-    
+
     private func createTemporaryFile(with content: String) -> URL {
         let tempDirectory = FileManager.default.temporaryDirectory
         let fileURL = tempDirectory.appendingPathComponent("\(consoleName)_games.txt")
-        
+
         do {
             try content.write(to: fileURL, atomically: true, encoding: .utf8)
         } catch {
