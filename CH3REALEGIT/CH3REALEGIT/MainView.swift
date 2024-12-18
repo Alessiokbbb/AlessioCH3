@@ -40,7 +40,7 @@ struct MainView: View {
                         ("Switch", "switchimmagine", switchGames)
                     ])
 
-                    consoleSection(title: "Altre", consoles: [
+                    consoleSection(title: "Other console", consoles: [
                         ("PSP/PSVita", "pspimmagine", pspGames),
                         ("PS4", "ps4immagine", ps4Games),
                         ("Steam", "steamimmagine", steamGames)
