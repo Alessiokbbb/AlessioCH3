@@ -209,7 +209,7 @@ let wiiGames = [
 ]
 
 let switchGames = [
-    Game(imageName: "papermario", title: "Paper Mario: The Origami King", genre: "RPG", releaseDate: "2020", description: "Save the kingdom from the Origami King with Mario and friends."),
+    Game(imageName: "papermario", title: "Paper Mario: The Thousand Year Door", genre: "RPG", releaseDate: "2024", description: "A new adventure with Paper Mario and new super very strange friends in a completely new place, rogueport, a town full of thiefs and stuff never seen in a Mario game"),
     Game(imageName: "smashbros", title: "Super Smash Bros. Ultimate", genre: "Fighting", releaseDate: "2018", description: "The ultimate brawler featuring a massive roster of characters."),
     Game(imageName: "marioodyssey", title: "Super Mario Odyssey", genre: "Platformer", releaseDate: "2017", description: "Join Mario on a globe-trotting adventure to save Princess Peach."),
     Game(imageName: "zeldabotw", title: "The Legend of Zelda: Breath of the Wild", genre: "Adventure", releaseDate: "2017", description: "Explore Hyrule in an open-world RPG adventure."),
