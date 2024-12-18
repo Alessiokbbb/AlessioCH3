@@ -13,10 +13,12 @@ struct GameDetailsView: View {
 
     @Environment(\.dismiss) var dismiss
     
+    // MODIFICA: Stato per tenere traccia dei giochi selezionati
+    @State private var selectedGames = Set<UUID>()
+
     var body: some View {
         NavigationStack {
             VStack {
-                // Custom Back Button Styled Like System Default
                 HStack {
                     Button(action: { dismiss() }) {
                         HStack {
@@ -32,7 +34,6 @@ struct GameDetailsView: View {
                 }
                 .padding()
                 
-                // Console Title
                 Text(consoleName)
                     .font(.largeTitle)
                     .bold()
@@ -41,10 +42,21 @@ struct GameDetailsView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 20) {
                         ForEach(games) { game in
+                            // MODIFICA: Passa isSelected e onToggleSelection a GameRowView
                             NavigationLink {
                                 gameviewerview(game: game)
                             } label: {
-                                GameRowView(game: game)
+                                GameRowView(
+                                    game: game,
+                                    isSelected: selectedGames.contains(game.id),
+                                    onToggleSelection: {
+                                        if selectedGames.contains(game.id) {
+                                            selectedGames.remove(game.id)
+                                        } else {
+                                            selectedGames.insert(game.id)
+                                        }
+                                    }
+                                )
                             }
                             Divider()
                         }
@@ -54,7 +66,6 @@ struct GameDetailsView: View {
                 
                 Spacer()
                 
-                // Share Button
                 Button(action: {
                     shareGames()
                 }) {
@@ -67,11 +78,22 @@ struct GameDetailsView: View {
                 }
                 .padding(.bottom, 20)
             }
-            .toolbar(.hidden, for: .navigationBar) // Hide default navigation bar
+            .toolbar(.hidden, for: .navigationBar)
         }
     }
     
-    // Share Function to Create and Share Games Data
+    // MODIFICA: buildGamesData controlla se ci sono giochi selezionati
+    private func buildGamesData() -> String {
+        let filteredGames = selectedGames.isEmpty ? games : games.filter { selectedGames.contains($0.id) }
+
+        var result = "Games for \(consoleName):\n\n"
+        for game in filteredGames {
+            result += "**\(game.title.uppercased())**:\n-(\(game.genre))\n-(\(game.description))\n-(\(game.releaseDate))\n\n"
+        }
+
+        return result
+    }
+    
     private func shareGames() {
         let gamesData = buildGamesData()
         let tempURL = createTemporaryFile(with: gamesData)
@@ -83,17 +105,6 @@ struct GameDetailsView: View {
         }
     }
     
-    // Build Data String for Games
-    private func buildGamesData() -> String {
-        var result = "Games for \(consoleName):\n\n"
-        for game in games {
-            result += "**\(game.title.uppercased())**:\n-(\(game.genre))\n-(\(game.description))\n-(\(game.releaseDate))\n\n"
-        }
-
-        return result
-    }
-    
-    // Create Temporary File with Content
     private func createTemporaryFile(with content: String) -> URL {
         let tempDirectory = FileManager.default.temporaryDirectory
         let fileURL = tempDirectory.appendingPathComponent("\(consoleName)_games.txt")

@@ -18,6 +18,10 @@ import SwiftUI
 struct GameRowView: View {
     
     let game: Game
+    
+    // MODIFICA: Parametri per la selezione del gioco
+    let isSelected: Bool
+    let onToggleSelection: () -> Void
 
     var body: some View {
         HStack(spacing: 20) {
@@ -28,7 +32,7 @@ struct GameRowView: View {
                 
                 Image(game.imageName)
                     .resizable()
-                    .frame(width: 100, height: 100) // Slightly smaller game cover
+                    .frame(width: 100, height: 100)
                     .scaledToFill()
                     .containerShape(RoundedRectangle(cornerRadius: 12))
             }
@@ -41,23 +45,23 @@ struct GameRowView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
 
-                // Icons for Add and Favourite
                 HStack(spacing: 15) {
+                    // MODIFICA: Pulsante per selezionare/deselezionare il gioco
                     Button(action: {
-                        // Add action
+                        onToggleSelection()
                     }) {
-                        Image(systemName: "plus")
-                            .font(.body) // Smaller icon size
-                            .foregroundColor(.blue)
+                        Image(systemName: isSelected ? "checkmark.circle.fill" : "plus")
+                            .font(.body)
+                            .foregroundColor(isSelected ? .green : .blue)
                             .padding(8)
-                            .background(Circle().stroke(Color.blue, lineWidth: 1))
+                            .background(Circle().stroke(isSelected ? Color.green : Color.blue, lineWidth: 1))
                     }
 
                     Button(action: {
-                        // Favourite action
+                        // Azione preferiti futura
                     }) {
                         Image(systemName: "star.fill")
-                            .font(.body) // Smaller icon size
+                            .font(.body)
                             .foregroundColor(.yellow)
                             .padding(8)
                             .background(Circle().stroke(Color.yellow, lineWidth: 1))
